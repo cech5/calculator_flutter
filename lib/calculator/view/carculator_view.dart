@@ -13,69 +13,27 @@ class CalculatorView extends StatelessWidget {
             color: Colors.indigo,
           ),
           Container(
+            padding: EdgeInsets.symmetric(horizontal: 15),
             height: MediaQuery.of(context).size.height * 0.6,
-            color: Colors.lightBlue,
+            color: Colors.black,
             child: GridView.count(
-              mainAxisSpacing: 1,
-              crossAxisSpacing: 4,
+              mainAxisSpacing: 8,
+              crossAxisSpacing: 8,
               crossAxisCount: 4,
-              children: [
-                FloatingActionButton(
-                  onPressed: () => null,
-                  child: Text(
-                    '1',
-                    style: Theme.of(context).textTheme.headline2,
-                  ),
+              children: const [
+                CalculatorButton(
+                  label: 'AC',
+                  colorButton: Color.fromRGBO(166, 166, 166, 1),
+                  colorText: Colors.black,
                 ),
-                FloatingActionButton(
-                  onPressed: () => null,
-                  child: Text(
-                    '2',
-                    style: Theme.of(context).textTheme.headline2,
-                  ),
-                ),
-                ColoredBox(
-                  color: Colors.cyan,
-                ),
-                ColoredBox(
-                  color: Colors.pink,
-                ),
-                ColoredBox(
-                  color: Colors.amber,
-                ),
-                ColoredBox(
-                  color: Colors.blueGrey,
-                ),
-                ColoredBox(
-                  color: Colors.cyan,
-                ),
-                ColoredBox(
-                  color: Colors.pink,
-                ),
-                ColoredBox(
-                  color: Colors.amber,
-                ),
-                ColoredBox(
-                  color: Colors.blueGrey,
-                ),
-                ColoredBox(
-                  color: Colors.cyan,
-                ),
-                ColoredBox(
-                  color: Colors.pink,
-                ),
-                ColoredBox(
-                  color: Colors.amber,
-                ),
-                ColoredBox(
-                  color: Colors.blueGrey,
-                ),
-                ColoredBox(
-                  color: Colors.cyan,
-                ),
-                ColoredBox(
-                  color: Colors.pink,
-                ),
+                CalculatorButton(label: '2'),
+                CalculatorButton(label: '3'),
+                CalculatorButton(label: '4'),
+                CalculatorButton(label: '5'),
+                CalculatorButton(label: '6'),
+                CalculatorButton(label: '7'),
+                CalculatorButton(label: '8'),
+                CalculatorButton(label: '9'),
               ],
             ),
           ),
@@ -86,17 +44,26 @@ class CalculatorView extends StatelessWidget {
 }
 
 class CalculatorButton extends StatelessWidget {
-  const CalculatorButton({super.key, required this.label});
+  const CalculatorButton({
+    super.key,
+    required this.label,
+    this.colorButton,
+    this.colorText,
+  });
 
   final String label;
+  final Color? colorButton;
+  final Color? colorText;
 
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
+      foregroundColor: colorText,
+      backgroundColor: colorButton,
       onPressed: () => null,
       child: Text(
         label,
-        style: Theme.of(context).textTheme.headline2,
+        style: Theme.of(context).textTheme.headline3,
       ),
     );
   }
