@@ -60,9 +60,9 @@ class CalculatorView extends StatelessWidget {
                     onPressed: () => print('+/-'),
                   ),
                   CalculatorButton(
-                    text: 'del',
+                    text: 'C',
                     bgColor: const Color(0xffA5A5A5),
-                    onPressed: () => print('del'),
+                    onPressed: () => print('C'),
                   ),
                   CalculatorButton(
                     text: '/',
