@@ -1,5 +1,5 @@
 import 'package:calculator_flutter/l10n/l10n.dart';
-import 'package:calculator_flutter/screens/calculator/calculator_page.dart';
+import 'package:calculator_flutter/features/calculator/views/calculator_page.dart';
 import 'package:flutter/material.dart';
 
 class App extends StatelessWidget {
