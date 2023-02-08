@@ -2,10 +2,10 @@ part of 'calculator_cubit.dart';
 
 class CalculatorState extends Equatable {
   const CalculatorState({
-    this.mathResult = '30',
-    this.firstNumber = '10',
-    this.secondNumber = '20',
-    this.operation = '+',
+    this.mathResult = '',
+    this.firstNumber = '',
+    this.secondNumber = '',
+    this.operation = '',
   });
 
   final String mathResult;
