@@ -1,4 +1,6 @@
+import 'package:calculator_flutter/features/calculator/bloc/calculator_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CalculatorView extends StatelessWidget {
   const CalculatorView({super.key});
@@ -76,11 +78,15 @@ class CalculatorView extends StatelessWidget {
                 children: [
                   CalculatorButton(
                     text: '7',
-                    onPressed: () => print('7'),
+                    onPressed: () => context
+                        .read<CalculatorCubit>()
+                        .addDigitToFirstNumber('7'),
                   ),
                   CalculatorButton(
                     text: '8',
-                    onPressed: () => print('8'),
+                    onPressed: () => context
+                        .read<CalculatorCubit>()
+                        .addDigitToSeconNumber('8'),
                   ),
                   CalculatorButton(
                     text: '9',
@@ -133,7 +139,8 @@ class CalculatorView extends StatelessWidget {
                   CalculatorButton(
                     text: '+',
                     bgColor: const Color(0xffF0A23B),
-                    onPressed: () => print('+'),
+                    onPressed: () =>
+                        context.read<CalculatorCubit>().addOperator('+'),
                   ),
                 ],
               ),
@@ -152,7 +159,8 @@ class CalculatorView extends StatelessWidget {
                   CalculatorButton(
                     text: '=',
                     bgColor: const Color(0xffF0A23B),
-                    onPressed: () => print('='),
+                    onPressed: () =>
+                        context.read<CalculatorCubit>().addResult(),
                   ),
                 ],
               ),
@@ -170,12 +178,29 @@ class ResultGroup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: const [
-        SubResultLabel(text: '1000'),
-        SubResultLabel(text: 'X'),
-        SubResultLabel(text: '1000'),
-        LineSeparator(),
-        MainResultLabel(text: '2000'),
+      children: [
+        SubResultLabel(
+          text: context
+              .select((CalculatorCubit cubit) => cubit.state.firstNumber),
+        ),
+        if (context.select((CalculatorCubit cubit) => cubit.state.operation) !=
+            '')
+          SubResultLabel(
+            text: context
+                .select((CalculatorCubit cubit) => cubit.state.operation),
+          ),
+        if (context
+                .select((CalculatorCubit cubit) => cubit.state.secondNumber) !=
+            '')
+          SubResultLabel(
+            text: context
+                .select((CalculatorCubit cubit) => cubit.state.secondNumber),
+          ),
+        const LineSeparator(),
+        MainResultLabel(
+          text:
+              context.select((CalculatorCubit cubit) => cubit.state.mathResult),
+        ),
       ],
     );
   }
