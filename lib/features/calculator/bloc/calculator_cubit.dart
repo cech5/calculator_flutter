@@ -6,8 +6,34 @@ part 'calculator_state.dart';
 class CalculatorCubit extends Cubit<CalculatorState> {
   CalculatorCubit() : super(const CalculatorState());
 
-  void addDigitToFirstNumber(String digit) {
-    emit(state.copyWith(firstNumber: '${state.firstNumber}$digit'));
+  void addDigit(String digit) {
+    if (state.mathResult.isEmpty) {
+      if (state.operation.isEmpty) {
+        if (digit == '.' && state.firstNumber.isEmpty) {
+        } else {
+          emit(state.copyWith(firstNumber: '${state.firstNumber}$digit'));
+        }
+      } else {
+        emit(state.copyWith(secondNumber: '${state.secondNumber}$digit'));
+      }
+    } else {
+      emit(
+        state.copyWith(
+          firstNumber: '',
+          secondNumber: '',
+          operation: '',
+          mathResult: '',
+        ),
+      );
+      if (state.operation.isEmpty) {
+        if (digit == '.' && state.firstNumber.isEmpty) {
+        } else {
+          emit(state.copyWith(firstNumber: '${state.firstNumber}$digit'));
+        }
+      } else {
+        emit(state.copyWith(secondNumber: '${state.secondNumber}$digit'));
+      }
+    }
   }
 
   void addOperator(String operator) {
