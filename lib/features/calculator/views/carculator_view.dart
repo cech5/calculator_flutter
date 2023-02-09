@@ -52,9 +52,17 @@ class CalculatorView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CalculatorButton(
-                    text: 'AC',
+                    text: context
+                            .select(
+                              (CalculatorCubit cubit) =>
+                                  cubit.state.firstNumber,
+                            )
+                            .isNotEmpty
+                        ? 'C'
+                        : 'AC',
                     bgColor: const Color(0xffA5A5A5),
-                    onPressed: () => print('AC'),
+                    onPressed: () =>
+                        context.read<CalculatorCubit>().cleanResultGroup(),
                   ),
                   CalculatorButton(
                     text: '+/-',
@@ -62,14 +70,16 @@ class CalculatorView extends StatelessWidget {
                     onPressed: () => print('+/-'),
                   ),
                   CalculatorButton(
-                    text: 'C',
+                    text: '%',
                     bgColor: const Color(0xffA5A5A5),
-                    onPressed: () => print('C'),
+                    onPressed: () =>
+                        context.read<CalculatorCubit>().addOperator('%'),
                   ),
                   CalculatorButton(
-                    text: '/',
+                    text: '÷',
                     bgColor: const Color(0xffF0A23B),
-                    onPressed: () => print('/'),
+                    onPressed: () =>
+                        context.read<CalculatorCubit>().addOperator('÷'),
                   ),
                 ],
               ),
@@ -78,24 +88,24 @@ class CalculatorView extends StatelessWidget {
                 children: [
                   CalculatorButton(
                     text: '7',
-                    onPressed: () => context
-                        .read<CalculatorCubit>()
-                        .addDigitToFirstNumber('7'),
+                    onPressed: () =>
+                        context.read<CalculatorCubit>().addDigit('7'),
                   ),
                   CalculatorButton(
                     text: '8',
-                    onPressed: () => context
-                        .read<CalculatorCubit>()
-                        .addDigitToSeconNumber('8'),
+                    onPressed: () =>
+                        context.read<CalculatorCubit>().addDigit('8'),
                   ),
                   CalculatorButton(
                     text: '9',
-                    onPressed: () => print('9'),
+                    onPressed: () =>
+                        context.read<CalculatorCubit>().addDigit('9'),
                   ),
                   CalculatorButton(
                     text: 'X',
                     bgColor: const Color(0xffF0A23B),
-                    onPressed: () => print('X'),
+                    onPressed: () =>
+                        context.read<CalculatorCubit>().addOperator('X'),
                   ),
                 ],
               ),
@@ -104,20 +114,24 @@ class CalculatorView extends StatelessWidget {
                 children: [
                   CalculatorButton(
                     text: '4',
-                    onPressed: () => print('4'),
+                    onPressed: () =>
+                        context.read<CalculatorCubit>().addDigit('4'),
                   ),
                   CalculatorButton(
                     text: '5',
-                    onPressed: () => print('5'),
+                    onPressed: () =>
+                        context.read<CalculatorCubit>().addDigit('5'),
                   ),
                   CalculatorButton(
                     text: '6',
-                    onPressed: () => print('6'),
+                    onPressed: () =>
+                        context.read<CalculatorCubit>().addDigit('6'),
                   ),
                   CalculatorButton(
                     text: '-',
                     bgColor: const Color(0xffF0A23B),
-                    onPressed: () => print('-'),
+                    onPressed: () =>
+                        context.read<CalculatorCubit>().addOperator('-'),
                   ),
                 ],
               ),
@@ -126,15 +140,18 @@ class CalculatorView extends StatelessWidget {
                 children: [
                   CalculatorButton(
                     text: '1',
-                    onPressed: () => print('1'),
+                    onPressed: () =>
+                        context.read<CalculatorCubit>().addDigit('1'),
                   ),
                   CalculatorButton(
                     text: '2',
-                    onPressed: () => print('2'),
+                    onPressed: () =>
+                        context.read<CalculatorCubit>().addDigit('2'),
                   ),
                   CalculatorButton(
                     text: '3',
-                    onPressed: () => print('3'),
+                    onPressed: () =>
+                        context.read<CalculatorCubit>().addDigit('3'),
                   ),
                   CalculatorButton(
                     text: '+',
@@ -150,11 +167,13 @@ class CalculatorView extends StatelessWidget {
                   CalculatorButton(
                     text: '0',
                     big: true,
-                    onPressed: () => print('0'),
+                    onPressed: () =>
+                        context.read<CalculatorCubit>().addDigit('0'),
                   ),
                   CalculatorButton(
                     text: '.',
-                    onPressed: () => print('.'),
+                    onPressed: () =>
+                        context.read<CalculatorCubit>().addDigit('.'),
                   ),
                   CalculatorButton(
                     text: '=',
