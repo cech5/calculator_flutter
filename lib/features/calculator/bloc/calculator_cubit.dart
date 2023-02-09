@@ -51,8 +51,6 @@ class CalculatorCubit extends Cubit<CalculatorState> {
     }
   }
 
-  void addDigitToSeconNumber(String digit) {
-    emit(state.copyWith(secondNumber: '${state.secondNumber}$digit'));
   }
 
   void addResult() {
