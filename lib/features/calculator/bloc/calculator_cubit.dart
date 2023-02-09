@@ -54,15 +54,6 @@ class CalculatorCubit extends Cubit<CalculatorState> {
   }
 
   void addResult() {
-    final firstNumberInt = int.parse(state.firstNumber);
-    final secondNumberInt = int.parse(state.secondNumber);
-    final result;
-    switch (state.operation) {
-      case '+':
-        result = firstNumberInt + secondNumberInt;
-        emit(state.copyWith(mathResult: result.toString()));
-        break;
-      default:
     if (state.operation.isNotEmpty && state.secondNumber.isNotEmpty) {
       final firstNumberDouble = double.parse(state.firstNumber);
       final secondNumberDouble = double.parse(state.secondNumber);
