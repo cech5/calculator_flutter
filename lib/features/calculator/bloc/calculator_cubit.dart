@@ -56,4 +56,15 @@ class CalculatorCubit extends Cubit<CalculatorState> {
       default:
     }
   }
+
+  void cleanResultGroup() {
+    emit(
+      state.copyWith(
+        firstNumber: '',
+        secondNumber: '',
+        mathResult: '',
+        operation: '',
+      ),
+    );
+  }
 }
