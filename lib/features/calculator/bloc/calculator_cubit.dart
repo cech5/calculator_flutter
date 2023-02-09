@@ -63,6 +63,51 @@ class CalculatorCubit extends Cubit<CalculatorState> {
         emit(state.copyWith(mathResult: result.toString()));
         break;
       default:
+    if (state.operation.isNotEmpty && state.secondNumber.isNotEmpty) {
+      final firstNumberDouble = double.parse(state.firstNumber);
+      final secondNumberDouble = double.parse(state.secondNumber);
+      final double result;
+      switch (state.operation) {
+        case '+':
+          result = firstNumberDouble + secondNumberDouble;
+          // Verify if result after point contains 0
+          if (result == result.truncateToDouble()) {
+            emit(state.copyWith(mathResult: result.toStringAsFixed(0)));
+          } else {
+            emit(state.copyWith(mathResult: result.toString()));
+          }
+          break;
+        case 'X':
+          result = firstNumberDouble * secondNumberDouble;
+          // Verify if result after point contains 0
+          if (result == result.truncateToDouble()) {
+            emit(state.copyWith(mathResult: result.toStringAsFixed(0)));
+          } else {
+            emit(state.copyWith(mathResult: result.toString()));
+          }
+          break;
+        case '-':
+          result = firstNumberDouble - secondNumberDouble;
+          // Verify if result after point contains 0
+          if (result == result.truncateToDouble()) {
+            emit(state.copyWith(mathResult: result.toStringAsFixed(0)));
+          } else {
+            emit(state.copyWith(mathResult: result.toString()));
+          }
+          break;
+        case '÷':
+          result = firstNumberDouble / secondNumberDouble;
+          // Verify if result after point contains 0
+          if (result == result.truncateToDouble()) {
+            emit(state.copyWith(mathResult: result.toStringAsFixed(0)));
+          } else {
+            emit(state.copyWith(mathResult: result.toString()));
+          }
+          break;
+        case '%':
+          break;
+        default:
+      }
     }
   }
 
