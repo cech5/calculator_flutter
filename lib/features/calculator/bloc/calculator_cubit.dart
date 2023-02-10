@@ -37,7 +37,17 @@ class CalculatorCubit extends Cubit<CalculatorState> {
   }
 
   void addOperator(String operator) {
+    // Execute % operation if operator just in case
     if (operator == '%') {
+      if (state.mathResult.isNotEmpty) {
+        emit(
+          state.copyWith(
+            firstNumber: state.mathResult,
+            operation: '',
+            secondNumber: '',
+          ),
+        );
+      }
       if (state.firstNumber.isNotEmpty) {
         final result = double.parse(state.firstNumber) / 100;
         if (result == result.truncateToDouble()) {
