@@ -47,7 +47,18 @@ class CalculatorCubit extends Cubit<CalculatorState> {
         }
       }
     } else {
-      emit(state.copyWith(operation: operator));
+      if (state.mathResult.isNotEmpty) {
+        emit(
+          state.copyWith(
+            firstNumber: state.mathResult,
+            operation: operator,
+            secondNumber: '',
+            mathResult: '',
+          ),
+        );
+      } else {
+        emit(state.copyWith(operation: operator));
+      }
     }
   }
 
