@@ -62,19 +62,22 @@ class CalculatorCubit extends Cubit<CalculatorState> {
     }
   }
 
-  //TODO: Fix the add sign
   void addSign() {
     if (state.operation.isEmpty) {
-      if (state.firstNumber.isEmpty) {
-        emit(state.copyWith(firstNumber: '-'));
-      } else {
-        emit(state.copyWith(firstNumber: '-${state.firstNumber}'));
+      if (state.firstNumber.isNotEmpty) {
+        if (!state.firstNumber.startsWith('-')) {
+          emit(state.copyWith(firstNumber: '-${state.firstNumber}'));
+        } else {
+          emit(state.copyWith(firstNumber: state.firstNumber.substring(1)));
+        }
       }
     } else {
-      if (state.secondNumber.isEmpty) {
-        emit(state.copyWith(secondNumber: '-'));
-      } else {
-        emit(state.copyWith(secondNumber: '-${state.secondNumber}'));
+      if (state.secondNumber.isNotEmpty) {
+        if (!state.secondNumber.startsWith('-')) {
+          emit(state.copyWith(secondNumber: '-${state.secondNumber}'));
+        } else {
+          emit(state.copyWith(secondNumber: state.secondNumber.substring(1)));
+        }
       }
     }
   }
