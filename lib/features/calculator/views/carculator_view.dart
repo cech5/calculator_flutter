@@ -147,6 +147,8 @@ class CalculatorView extends StatelessWidget {
                     bgColor: const Color(0xffF0A23B),
                     fgColor: context.read<AppThemeCubit>().state ==
                             AppTheme.darkTheme
+                        ? Colors.white
+                        : Colors.black,
                     onPressed: () =>
                         context.read<CalculatorCubit>().addOperator('-'),
                   ),
@@ -240,7 +242,7 @@ class ResultGroup extends StatelessWidget {
             text: context
                 .select((CalculatorCubit cubit) => cubit.state.secondNumber),
           ),
-        const LineSeparator(),
+        const Divider(),
         MainResultLabel(
           text:
               context.select((CalculatorCubit cubit) => cubit.state.mathResult),
