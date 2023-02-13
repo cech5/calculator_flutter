@@ -281,11 +281,13 @@ class MainResultLabel extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 20),
       width: double.infinity,
       alignment: Alignment.centerRight,
-      child: Text(
+      child: AutoSizeText(
         text,
         style: const TextStyle(
           fontSize: 50,
         ),
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
       ),
     );
   }
