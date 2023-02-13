@@ -1,4 +1,7 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:calculator_flutter/features/calculator/bloc/calculator_cubit.dart';
+import 'package:calculator_flutter/features/theme/cubit/app_theme_cubit.dart';
+import 'package:calculator_flutter/features/theme/themes/app_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -7,7 +10,23 @@ class CalculatorView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //print(MediaQuery.of(context).size.width);
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 30,
+        actions: [
+          Switch(
+            value: context.select((AppThemeCubit cubit) => cubit.state) ==
+                    AppTheme.darkTheme || false,
+            onChanged: (value) {
+              context.read<AppThemeCubit>().toogleTheme();
+            },
+            activeThumbImage: const AssetImage('assets/images/dark-mode.png'),
+            inactiveThumbImage:
+                const AssetImage('assets/images/light-mode.png'),
+          )
+        ],
+      ),
       body: SafeArea(
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 10),
