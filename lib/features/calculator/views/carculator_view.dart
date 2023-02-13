@@ -33,39 +33,6 @@ class CalculatorView extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              /*
-              Container(
-                height: MediaQuery.of(context).size.height * 0.4,
-                color: Colors.indigo,
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 15,
-                ),
-                height: MediaQuery.of(context).size.height * 0.6,
-                color: Colors.black,
-                child: GridView.count(
-                  mainAxisSpacing: 8,
-                  crossAxisSpacing: 8,
-                  crossAxisCount: 4,
-                  children: const [
-                    CalculatorButton(
-                      label: 'AC',
-                      colorButton: Color.fromRGBO(166, 166, 166, 1),
-                      colorText: Colors.black,
-                    ),
-                    CalculatorButton(label: '2'),
-                    CalculatorButton(label: '3'),
-                    CalculatorButton(label: '4'),
-                    CalculatorButton(label: '5'),
-                    CalculatorButton(label: '6'),
-                    CalculatorButton(label: '7'),
-                    CalculatorButton(label: '8'),
-                    CalculatorButton(label: '9'),
-                  ],
-                ),
-              ),
-              */
               const ResultGroup(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -79,24 +46,49 @@ class CalculatorView extends StatelessWidget {
                             .isNotEmpty
                         ? 'C'
                         : 'AC',
-                    bgColor: const Color(0xffA5A5A5),
+                    bgColor: context.read<AppThemeCubit>().state ==
+                            AppTheme.darkTheme
+                        ? const Color(0xffA5A5A5)
+                        : const Color.fromRGBO(128, 128, 128, 1),
+                    fgColor: context.read<AppThemeCubit>().state ==
+                            AppTheme.darkTheme
+                        ? Colors.black
+                        : Colors.white,
                     onPressed: () =>
                         context.read<CalculatorCubit>().cleanResultGroup(),
                   ),
                   CalculatorButton(
                     text: '+/-',
-                    bgColor: const Color(0xffA5A5A5),
+                    bgColor: context.read<AppThemeCubit>().state ==
+                            AppTheme.darkTheme
+                        ? const Color(0xffA5A5A5)
+                        : const Color.fromRGBO(128, 128, 128, 1),
+                    fgColor: context.read<AppThemeCubit>().state ==
+                            AppTheme.darkTheme
+                        ? Colors.black
+                        : Colors.white,
                     onPressed: () => context.read<CalculatorCubit>().addSign(),
                   ),
                   CalculatorButton(
                     text: '%',
-                    bgColor: const Color(0xffA5A5A5),
+                    bgColor: context.read<AppThemeCubit>().state ==
+                            AppTheme.darkTheme
+                        ? const Color(0xffA5A5A5)
+                        : const Color.fromRGBO(128, 128, 128, 1),
+                    fgColor: context.read<AppThemeCubit>().state ==
+                            AppTheme.darkTheme
+                        ? Colors.black
+                        : Colors.white,
                     onPressed: () =>
                         context.read<CalculatorCubit>().addOperator('%'),
                   ),
                   CalculatorButton(
                     text: '÷',
                     bgColor: const Color(0xffF0A23B),
+                    fgColor: context.read<AppThemeCubit>().state ==
+                            AppTheme.darkTheme
+                        ? Colors.white
+                        : Colors.black,
                     onPressed: () =>
                         context.read<CalculatorCubit>().addOperator('÷'),
                   ),
@@ -121,10 +113,14 @@ class CalculatorView extends StatelessWidget {
                         context.read<CalculatorCubit>().addDigit('9'),
                   ),
                   CalculatorButton(
-                    text: 'X',
+                    text: 'x',
                     bgColor: const Color(0xffF0A23B),
+                    fgColor: context.read<AppThemeCubit>().state ==
+                            AppTheme.darkTheme
+                        ? Colors.white
+                        : Colors.black,
                     onPressed: () =>
-                        context.read<CalculatorCubit>().addOperator('X'),
+                        context.read<CalculatorCubit>().addOperator('x'),
                   ),
                 ],
               ),
@@ -149,6 +145,8 @@ class CalculatorView extends StatelessWidget {
                   CalculatorButton(
                     text: '-',
                     bgColor: const Color(0xffF0A23B),
+                    fgColor: context.read<AppThemeCubit>().state ==
+                            AppTheme.darkTheme
                     onPressed: () =>
                         context.read<CalculatorCubit>().addOperator('-'),
                   ),
@@ -175,6 +173,10 @@ class CalculatorView extends StatelessWidget {
                   CalculatorButton(
                     text: '+',
                     bgColor: const Color(0xffF0A23B),
+                    fgColor: context.read<AppThemeCubit>().state ==
+                            AppTheme.darkTheme
+                        ? Colors.white
+                        : Colors.black,
                     onPressed: () =>
                         context.read<CalculatorCubit>().addOperator('+'),
                   ),
@@ -197,6 +199,10 @@ class CalculatorView extends StatelessWidget {
                   CalculatorButton(
                     text: '=',
                     bgColor: const Color(0xffF0A23B),
+                    fgColor: context.read<AppThemeCubit>().state ==
+                            AppTheme.darkTheme
+                        ? Colors.white
+                        : Colors.black,
                     onPressed: () =>
                         context.read<CalculatorCubit>().addResult(),
                   ),
@@ -302,15 +308,17 @@ class LineSeparator extends StatelessWidget {
 class CalculatorButton extends StatelessWidget {
   const CalculatorButton({
     super.key,
-    this.bgColor = const Color(0xff333333),
+    this.bgColor,
     this.big = false,
+    this.fgColor,
     required this.text,
     required this.onPressed,
   });
 
-  final Color bgColor;
+  final Color? bgColor;
   final bool big;
   final String text;
+  final Color? fgColor;
 
   final Function onPressed;
 
@@ -319,7 +327,7 @@ class CalculatorButton extends StatelessWidget {
     // Button
     final buttonStyle = TextButton.styleFrom(
       backgroundColor: bgColor,
-      foregroundColor: Colors.white,
+      foregroundColor: fgColor,
       shape: const StadiumBorder(),
     );
 
@@ -339,41 +347,13 @@ class CalculatorButton extends StatelessWidget {
               text,
               style: const TextStyle(
                 fontSize: 30,
-                fontWeight: FontWeight.w300,
+                fontWeight: FontWeight.w400,
               ),
             ),
           ),
         ),
         onPressed: () => onPressed(),
-      ),
-    );
+      ),*/
+        );
   }
 }
-
-/*
-class CalculatorButton extends StatelessWidget {
-  const CalculatorButton({
-    super.key,
-    required this.label,
-    this.colorButton,
-    this.colorText,
-  });
-
-  final String label;
-  final Color? colorButton;
-  final Color? colorText;
-
-  @override
-  Widget build(BuildContext context) {
-    return FloatingActionButton(
-      foregroundColor: colorText,
-      backgroundColor: colorButton,
-      onPressed: () => null,
-      child: Text(
-        label,
-        style: Theme.of(context).textTheme.headline3,
-      ),
-    );
-  }
-}
-*/
