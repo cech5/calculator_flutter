@@ -336,12 +336,37 @@ class CalculatorButton extends StatelessWidget {
     );
 
     return Container(
-      margin: const EdgeInsets.only(
-        bottom: 10,
-        right: 5,
-        left: 5,
-      ),
-      child: TextButton(
+        margin: const EdgeInsets.only(
+          bottom: 10,
+          right: 5,
+          left: 5,
+        ),
+        //width: big ? 150 : 65,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(40),
+          onTap: () => onPressed(),
+          child: Container(
+            decoration: BoxDecoration(
+              //shape: BoxShape.circle,
+              borderRadius: BorderRadius.circular(40),
+              color: bgColor ?? Theme.of(context).primaryColor,
+            ),
+            width: big ? 170 : 80,
+            height: 80,
+            child: Center(
+              child: Text(
+                text,
+                style: TextStyle(
+                  color: fgColor,
+                  fontSize: 30,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ),
+          ),
+        )
+
+        /*TextButton(
         style: buttonStyle,
         child: SizedBox(
           width: big ? 150 : 65,
