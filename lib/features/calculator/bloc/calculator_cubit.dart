@@ -37,37 +37,39 @@ class CalculatorCubit extends Cubit<CalculatorState> {
   }
 
   void addOperator(String operator) {
-    // Execute % operation if operator just in case
-    if (operator == '%') {
-      if (state.mathResult.isNotEmpty) {
-        emit(
-          state.copyWith(
-            firstNumber: state.mathResult,
-            operation: '',
-            secondNumber: '',
-          ),
-        );
-      }
-      if (state.firstNumber.isNotEmpty) {
-        final result = double.parse(state.firstNumber) / 100;
-        if (result == result.truncateToDouble()) {
-          emit(state.copyWith(mathResult: result.toStringAsFixed(0)));
-        } else {
-          emit(state.copyWith(mathResult: result.toString()));
+    if (state.firstNumber.isNotEmpty) {
+      // Execute % operation if operator just in case
+      if (operator == '%') {
+        if (state.mathResult.isNotEmpty) {
+          emit(
+            state.copyWith(
+              firstNumber: state.mathResult,
+              operation: '',
+              secondNumber: '',
+            ),
+          );
         }
-      }
-    } else {
-      if (state.mathResult.isNotEmpty) {
-        emit(
-          state.copyWith(
-            firstNumber: state.mathResult,
-            operation: operator,
-            secondNumber: '',
-            mathResult: '',
-          ),
-        );
+        if (state.firstNumber.isNotEmpty) {
+          final result = double.parse(state.firstNumber) / 100;
+          if (result == result.truncateToDouble()) {
+            emit(state.copyWith(mathResult: result.toStringAsFixed(0)));
+          } else {
+            emit(state.copyWith(mathResult: result.toString()));
+          }
+        }
       } else {
-        emit(state.copyWith(operation: operator));
+        if (state.mathResult.isNotEmpty) {
+          emit(
+            state.copyWith(
+              firstNumber: state.mathResult,
+              operation: operator,
+              secondNumber: '',
+              mathResult: '',
+            ),
+          );
+        } else {
+          emit(state.copyWith(operation: operator));
+        }
       }
     }
   }
@@ -107,7 +109,7 @@ class CalculatorCubit extends Cubit<CalculatorState> {
             emit(state.copyWith(mathResult: result.toString()));
           }
           break;
-        case 'X':
+        case 'x':
           result = firstNumberDouble * secondNumberDouble;
           // Verify if result after point contains 0
           if (result == result.truncateToDouble()) {
