@@ -17,7 +17,8 @@ class CalculatorView extends StatelessWidget {
         actions: [
           Switch(
             value: context.select((AppThemeCubit cubit) => cubit.state) ==
-                    AppTheme.darkTheme || false,
+                    AppTheme.darkTheme ||
+                false,
             onChanged: (value) {
               context.read<AppThemeCubit>().toogleTheme();
             },
@@ -329,60 +330,36 @@ class CalculatorButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Button
-    final buttonStyle = TextButton.styleFrom(
-      backgroundColor: bgColor,
-      foregroundColor: fgColor,
-      shape: const StadiumBorder(),
-    );
-
     return Container(
-        margin: const EdgeInsets.only(
-          bottom: 10,
-          right: 5,
-          left: 5,
-        ),
-        //width: big ? 150 : 65,
-        child: InkWell(
-          borderRadius: BorderRadius.circular(40),
-          onTap: () => onPressed(),
-          child: Container(
-            decoration: BoxDecoration(
-              //shape: BoxShape.circle,
-              borderRadius: BorderRadius.circular(40),
-              color: bgColor ?? Theme.of(context).primaryColor,
-            ),
-            width: big ? 170 : 80,
-            height: 80,
-            child: Center(
-              child: Text(
-                text,
-                style: TextStyle(
-                  color: fgColor,
-                  fontSize: 30,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-            ),
+      margin: const EdgeInsets.only(
+        bottom: 10,
+        right: 5,
+        left: 5,
+      ),
+      //width: big ? 150 : 65,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(40),
+        onTap: () => onPressed(),
+        child: Container(
+          decoration: BoxDecoration(
+            //shape: BoxShape.circle,
+            borderRadius: BorderRadius.circular(40),
+            color: bgColor ?? Theme.of(context).primaryColor,
           ),
-        )
-
-        /*TextButton(
-        style: buttonStyle,
-        child: SizedBox(
-          width: big ? 150 : 65,
-          height: 65,
+          width: big ? 170 : 80,
+          height: 80,
           child: Center(
             child: Text(
               text,
-              style: const TextStyle(
+              style: TextStyle(
+                color: fgColor,
                 fontSize: 30,
                 fontWeight: FontWeight.w400,
               ),
             ),
           ),
         ),
-        onPressed: () => onPressed(),
-      ),*/
-        );
+      ),
+    );
   }
 }
