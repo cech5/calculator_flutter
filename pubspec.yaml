@@ -17,7 +17,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: ^0.17.0
-  responsive_framework: ^0.2.0
+  responsive_framework: ^1.0.0
 
 dev_dependencies:
   bloc_test: ^9.1.0
